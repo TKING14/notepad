@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TickTackToe - MVP</title>
+</head>
+<script>
+function initGame(){
+    const body = document.getElementById('body');
+    const title = document.getElementById('title');
+
+    let size;
+    var x;
+    var y;
+
+    body.removeAttribute("onclick");
+    title.remove();
+    body.style.backgroundColor = "revert";
+
+    size = 3;
+    y = 0;
+    while(y < size){
+        x = 0;
+        const row = document.createElement("div");
+        row.setAttribute("class", "flex row");
+        while(x < size){
+            const div = document.createElement("div");
+            div.setAttribute("onclick", "getCoords("+x+", "+y+")");
+            div.setAttribute("class", "div");
+            div.setAttribute("id", ""+x+""+y+"");
+            row.appendChild(div);
+            console.log(x, y);
+            x++;
+        }
+        body.appendChild(row);
+        y+=1;
+    }
+}
+
+var i = 0;
+
+function getCoords(x, y){
+    var color;
+    console.log(x+1, y+1);
+
+    i++;
+    if (i % 2 == 0)
+       {color = "blue";}
+    else
+       {color ="red";}
+    document.getElementById(""+x+""+y+"").style.backgroundColor = color;
+    document.getElementById(""+x+""+y+"").removeAttribute("onclick");
+    checkRow();
+    console.log(color);
+}
+</script>
+<body id="body" onclick="initGame()" class="vh10 flex center col">
+    <h1 id="title"> Click to start! </h1>
+</body>
+<style>
+    body{margin:0;height:-webkit-fill-available;background-color:#fdfdfdfd;}
+    h1{font-size:10mm;}
+    .div{width: 25mm; height:25mm; background-color:#111111;margin:2mm;}
+    .vh10{height:100vh;}
+    .flex{display:flex;}
+    .row{flex-direction:row;}
+    .col{flex-direction:column;}
+    .center{justify-content:center;align-items:center;}
+    .blue {background-color:blue;}
+}
+</style>
+</html>
