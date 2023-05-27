@@ -12,23 +12,25 @@ function initGame(){
     var x;
     var y;
 
+    /*Removes start screen elements*/
     body.removeAttribute("onclick");
     title.remove();
     body.style.backgroundColor = "revert";
 
     size = 3;
     y = 0;
+    
+    /*creates 3 rows each containing 3 divs and sets its attributes*/
     while(y < size){
         x = 0;
         const row = document.createElement("div");
         row.setAttribute("class", "flex row");
         while(x < size){
             const div = document.createElement("div");
-            div.setAttribute("onclick", "getCoords("+x+", "+y+")");
+            div.setAttribute("onclick", "setColor("+x+", "+y+")");
             div.setAttribute("class", "div");
             div.setAttribute("id", ""+x+""+y+"");
             row.appendChild(div);
-            console.log(x, y);
             x++;
         }
         body.appendChild(row);
@@ -36,27 +38,32 @@ function initGame(){
     }
 }
 
-var i = 0;
+/*Quick fix, for itterator, that the color can switch without resetting or passing the count*/
+var i;
 
-function getCoords(x, y){
+i = 0;
+function setColor(x, y){
     var color;
-    console.log(x+1, y+1);
-
+    const div = document.getElementById(""+x+""+y+"");
+    
+    /*default color is red*/
+    color = "red";
     i++;
+    
+    /*if even, set color to blue*/
     if (i % 2 == 0)
-       {color = "blue";}
-    else
-       {color ="red";}
-    document.getElementById(""+x+""+y+"").style.backgroundColor = color;
-    document.getElementById(""+x+""+y+"").removeAttribute("onclick");
-    checkRow();
-    console.log(color);
+        color = "blue";
+    div.style.backgroundColor = color;
+    
+    /*removes event, preventing the "capturing" of tiles*/
+    div.removeAttribute("onclick");
 }
 </script>
 <body id="body" onclick="initGame()" class="vh10 flex center col">
     <h1 id="title"> Click to start! </h1>
 </body>
 <style>
+    /*-webkit-fill-available - prevents safari miscalculation bug*/
     body{margin:0;height:-webkit-fill-available;background-color:#fdfdfdfd;}
     h1{font-size:10mm;}
     .div{width: 25mm; height:25mm; background-color:#111111;margin:2mm;}
@@ -65,7 +72,6 @@ function getCoords(x, y){
     .row{flex-direction:row;}
     .col{flex-direction:column;}
     .center{justify-content:center;align-items:center;}
-    .blue {background-color:blue;}
 }
 </style>
 </html>
